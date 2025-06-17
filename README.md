@@ -1,6 +1,6 @@
 # Island-Preserving UV Transfer for Simplified Meshes
 
-Implementation of the paper "Island-Preserving UV Transfer for Simplified Meshes" (MITA 2025).
+Implementation of the paper "Island-Preserving UV Transfer for Simplified Meshes".
 
 ## Overview
 
