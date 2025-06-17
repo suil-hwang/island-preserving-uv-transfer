@@ -63,7 +63,6 @@ If you use this code in your research, please cite:
 @inproceedings{hwang2025island,
   title={Island-Preserving UV Transfer for Simplified Meshes},
   author={Hwang, Suil and Hong, Q Youn},
-  booktitle={MITA 2025},
   year={2025}
 }
 ```
