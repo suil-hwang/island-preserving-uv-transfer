@@ -48,30 +48,12 @@ python uv_transfer.py --original original.obj --simplified simplified.obj --outp
 - `--visualize`: Enable visualization of UV islands (optional)
 - `--uv_threshold`: UV distance threshold for island detection (default: 0.01)
 
-## Example
-
-```bash
-# Transfer UVs from original Spot model to CWF-simplified version
-python uv_transfer.py \
-    --original data/spot/spot_original.obj \
-    --simplified data/spot/spot_cwf.obj \
-    --output results/spot_with_uvs.obj \
-    --visualize
-```
-
 ## Method Overview
 
 1. **UV Island Detection**: Identifies connected components in UV space using BFS
 2. **Face Assignment**: Maps each simplified face to its nearest original island
 3. **UV Interpolation**: Computes UV coordinates using barycentric interpolation within islands
 4. **Island Reconstruction**: Rebuilds UV islands on the simplified mesh
-
-## Results
-
-Our method successfully transfers UV coordinates while:
-- Preserving the original UV island structure
-- Preventing cross-island interpolation artifacts
-- Maintaining texture quality comparable to integrated methods
 
 ## Citation
 
