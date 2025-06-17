@@ -9,13 +9,6 @@ This project provides a post-processing method that transfers UV coordinates fro
 ![UV Transfer Comparison](assets/figure_1.png)
 *Comparison of UV preservation methods on the Blub model simplified to ~1% vertices*
 
-## Features
-
-- **UV Island Detection**: Automatically detects and preserves UV island boundaries
-- **Island-Aware Transfer**: Ensures UV interpolation only within the same original island
-- **Mesh Format Support**: Works with OBJ files containing UV coordinates
-- **Visualization Tools**: Built-in 3D mesh and 2D UV map visualization
-
 ## Installation
 
 ### Requirements
