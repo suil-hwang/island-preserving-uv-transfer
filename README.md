@@ -11,14 +11,6 @@ This project provides a post-processing method that transfers UV coordinates fro
 
 ## Installation
 
-### Requirements
-- Python 3.7+
-- NumPy
-- SciPy
-- Matplotlib
-- Trimesh
-- tqdm
-
 ### Setup
 ```bash
 # Clone the repository
