@@ -140,44 +140,43 @@ class UVIslandManager:
         )[0]
 
     def detect_simplified_islands(self, faces, face_uvs, face_to_orig_island):
+        faces = np.asarray(faces)
         n_faces = len(faces)
 
-        # Find adjacent faces
-        edge_to_faces = defaultdict(list)
-        face_vertex_indices = []
-        for i, face in enumerate(faces):
-            face_vertex_indices.append({vertex: j for j, vertex in enumerate(face)})
-            for j in range(3):
-                edge = tuple(sorted([face[j], face[(j+1)%3]]))
-                edge_to_faces[edge].append(i)
+        # Corner index of each vertex within its face, for UV-threshold lookups
+        face_vertex_indices = [
+            {vertex: j for j, vertex in enumerate(face)} for face in faces
+        ]
+
+        # Adjacent face pairs sharing a manifold edge (exactly two incident faces)
+        adjacency = trimesh.graph.face_adjacency(faces=faces)
 
         # Build connectivity matrix
         rows, cols = [], []
 
-        for edge_faces in edge_to_faces.values():
-            if len(edge_faces) == 2:
-                f1, f2 = edge_faces
+        for f1, f2 in adjacency:
+            f1, f2 = int(f1), int(f2)
 
-                # Always connect if from same original island
-                if (face_to_orig_island[f1] >= 0 and
-                    face_to_orig_island[f1] == face_to_orig_island[f2]):
+            # Always connect if from same original island
+            if (face_to_orig_island[f1] >= 0 and
+                face_to_orig_island[f1] == face_to_orig_island[f2]):
+                rows.extend([f1, f2])
+                cols.extend([f2, f1])
+                continue
+
+            # Check UV distance
+            shared = set(face_vertex_indices[f1]) & set(face_vertex_indices[f2])
+            if len(shared) >= 2:
+                connected = True
+                for v in shared:
+                    idx1 = face_vertex_indices[f1][v]
+                    idx2 = face_vertex_indices[f2][v]
+                    if np.linalg.norm(face_uvs[f1, idx1] - face_uvs[f2, idx2]) > self.uv_threshold:
+                        connected = False
+                        break
+                if connected:
                     rows.extend([f1, f2])
                     cols.extend([f2, f1])
-                    continue
-
-                # Check UV distance
-                shared = set(face_vertex_indices[f1]) & set(face_vertex_indices[f2])
-                if len(shared) >= 2:
-                    connected = True
-                    for v in shared:
-                        idx1 = face_vertex_indices[f1][v]
-                        idx2 = face_vertex_indices[f2][v]
-                        if np.linalg.norm(face_uvs[f1, idx1] - face_uvs[f2, idx2]) > self.uv_threshold:
-                            connected = False
-                            break
-                    if connected:
-                        rows.extend([f1, f2])
-                        cols.extend([f2, f1])
 
         # Find connected components
         if rows:
@@ -452,3 +451,4 @@ if __name__ == "__main__":
         visualize_uv_map(face_uvs.reshape(-1, 2),
                         np.arange(len(simplified_mesh.faces) * 3).reshape(-1, 3),
                         islands, "Simplified UV Map")
+

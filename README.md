@@ -65,11 +65,10 @@ python uv_transfer.py --original original.obj --simplified simplified.obj --outp
 If you use this code in your research, please cite:
 
 ```bibtex
-@article{hwang2025island,
+@inproceedings{hwang2025island,
   title     = {Island-Preserving UV Transfer for Simplified Meshes},
   author    = {Hwang, Suil and Hong, Q Youn},
-  journal = {The 21th International Conference on Multimedia Information Technology and Applications},
-  year      = {2025},
-  month     = {July}
+  journal   = {The 21th International Conference on Multimedia Information Technology and Applications},
+  year      = {2025}
 }
 ```
