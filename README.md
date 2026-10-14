@@ -13,11 +13,12 @@ _Comparison of UV preservation methods on the Blub model simplified to ~1% verti
 
 ### Requirements
 
-- Python 3.7+
-- NumPy
+- Python 3.10+
+- NumPy 2.2+
 - SciPy
 - Matplotlib
-- Trimesh
+- Trimesh 5.1.1+
+- libigl 2.6.3+
 - tqdm
 
 ### Setup

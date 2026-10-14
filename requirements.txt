@@ -1,5 +1,6 @@
-trimesh
-numpy
+trimesh>=5.1.1
+libigl>=2.6.3
+numpy>=2.2
 matplotlib
 scipy
 tqdm
